@@ -31,30 +31,14 @@ jobs:
         run: |
           cp -r public .next/standalone/public
           cp -r .next/static .next/standalone/.next/static
-          tar -czf standalone.tar.gz -C .next/standalone .
+          mkdir -p .next/standalone/tmp
+          touch .next/standalone/tmp/restart.txt
 
-      - name: Upload bundle via SCP
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          port: ${{ secrets.SSH_PORT }}
-          source: "standalone.tar.gz"
-          target: ${{ secrets.APP_PATH }}
-
-      - name: Extract and restart app
-        uses: appleboy/ssh-action@v1.0.3
-        with:
-          host: ${{ secrets.SSH_HOST }}
-          username: ${{ secrets.SSH_USERNAME }}
-          key: ${{ secrets.SSH_KEY }}
-          passphrase: ${{ secrets.SSH_PASSPHRASE }}
-          port: ${{ secrets.SSH_PORT }}
-          script: |
-            cd ${{ secrets.APP_PATH }}
-            tar -xzf standalone.tar.gz
-            rm standalone.tar.gz
-            mkdir -p tmp
-            touch tmp/restart.txt
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: .next/standalone/
+          server-dir: ${{ secrets.FTP_REMOTE_DIR }}
