@@ -1,0 +1,620 @@
+/* ─── Hero slider (structure) ─────────────────────────────────────────────── */
+.hero-slide {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.hero-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.hero-slide__overlay {
+  position: absolute;
+  top: 0;
+  display: block;
+  width: 25%;
+  height: 100%;
+  background: #fff;
+  transform: scaleX(0);
+  z-index: 1;
+}
+
+.hero-slide__overlay:nth-child(1) { left: 0; }
+.hero-slide__overlay:nth-child(2) { left: 25%; }
+.hero-slide__overlay:nth-child(3) { left: 50%; }
+.hero-slide__overlay:nth-child(4) { left: 75%; }
+
+/* ─── Scroll reveal ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .scroll-reveal.is-visible {
+    animation: section-enter-up 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .scroll-reveal--left.is-visible {
+    animation-name: section-enter-left;
+  }
+
+  .scroll-reveal--right.is-visible {
+    animation-name: section-enter-right;
+  }
+
+  /* ─── Hero slider ───────────────────────────────────────────────────────── */
+  .hero-slide {
+    transition: opacity 1500ms ease, visibility 1500ms ease;
+  }
+
+  .hero-slide.is-active .hero-slide__bg {
+    animation: hero-scale 12s linear 1100ms both;
+  }
+
+  .hero-slide__badge,
+  .hero-slide__title,
+  .hero-slide__text,
+  .hero-slide__btns { opacity: 0; }
+
+  .hero-slide__badge,
+  .hero-slide__title {
+    transform: translateX(200px);
+    transition: transform 1200ms, opacity 1200ms;
+  }
+
+  .hero-slide__rule {
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform 1000ms;
+  }
+
+  .hero-slide__text {
+    transform: translateX(500px);
+    transition: transform 1000ms, opacity 1000ms;
+  }
+
+  .hero-slide__btns {
+    transform: perspective(400px) translateY(200px);
+    transition: transform 1000ms, opacity 1000ms;
+  }
+
+  .hero-slide__overlay {
+    transform: scaleX(1);
+    transition: transform 1000ms cubic-bezier(0.65, 0, 0.076, 1) 2s;
+  }
+
+  .hero-slide.is-active .hero-slide__badge { opacity: 1; transform: translateX(0); transition-delay: 900ms; }
+  .hero-slide.is-active .hero-slide__title { opacity: 1; transform: translateX(0); transition-delay: 1300ms; }
+  .hero-slide.is-active .hero-slide__rule  { transform: scaleX(1); transition-delay: 1500ms; }
+  .hero-slide.is-active .hero-slide__text  { opacity: 1; transform: translateX(0); transition-delay: 1100ms; }
+  .hero-slide.is-active .hero-slide__overlay { transform: scaleX(0); }
+
+  .hero-slide.is-active .hero-slide__btns {
+    opacity: 1;
+    transform: perspective(400px) rotateY(0deg) translateY(0);
+    transition-delay: 1700ms;
+  }
+
+  /* ─── Services cards ────────────────────────────────────────────────────── */
+  .scroll-reveal.is-visible #services .grid > a.group,
+  .scroll-reveal.is-visible #process .grid > div,
+  .scroll-reveal.is-visible #blog .grid > div {
+    animation: card-fade-in 700ms ease both;
+  }
+
+  .scroll-reveal.is-visible #services .grid > a.group:nth-child(2),
+  .scroll-reveal.is-visible #process .grid > div:nth-child(2),
+  .scroll-reveal.is-visible #blog .grid > div:nth-child(2) { animation-delay: 100ms; }
+
+  .scroll-reveal.is-visible #services .grid > a.group:nth-child(3),
+  .scroll-reveal.is-visible #process .grid > div:nth-child(3),
+  .scroll-reveal.is-visible #blog .grid > div:nth-child(3) { animation-delay: 200ms; }
+
+  .scroll-reveal.is-visible #services .grid > a.group:nth-child(4) { animation-delay: 120ms; }
+  .scroll-reveal.is-visible #services .grid > a.group:nth-child(5) { animation-delay: 220ms; }
+  .scroll-reveal.is-visible #services .grid > a.group:nth-child(6) { animation-delay: 320ms; }
+
+  .scroll-reveal.is-visible #blog .grid > div:nth-child(2) > div:nth-child(2) { animation-delay: 200ms; }
+
+  /* ─── Play button ───────────────────────────────────────────────────────── */
+  #realisations .play-button-motion {
+    animation: play-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* ─── Mobile nav ────────────────────────────────────────────────────────── */
+  .mobile-navigation {
+    transform-origin: top;
+    animation: menu-enter 220ms cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  /* ─── FAQ ───────────────────────────────────────────────────────────────── */
+  #faq button > div {
+    transition:
+      background-color 200ms ease,
+      color 200ms ease;
+  }
+}
+
+/* ─── Service card hover ──────────────────────────────────────────────────── */
+.service-card__img {
+  transform: scale(1);
+  transition: transform 0.4s ease-in-out;
+}
+
+.service-card:hover .service-card__img {
+  transform: scale(1.1);
+}
+
+/* Dark wash sweeping down over the image */
+.service-card__thumb::after {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 0%;
+  background: rgb(1 26 35 / 0.7);
+  transition: height 0.4s ease-in-out;
+  pointer-events: none;
+}
+
+.service-card:hover .service-card__thumb::after {
+  height: 100%;
+}
+
+/* Accent wipe across the title bar, left to right */
+.service-card__content::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 0%;
+  background: #056c8f;
+  transition: width 0.4s ease-in-out;
+  z-index: -1;
+}
+
+.service-card:hover .service-card__content::after {
+  width: 100%;
+}
+
+.service-card__title {
+  transition: color 0.4s ease-in-out;
+}
+
+.service-card:hover .service-card__title {
+  color: #fff;
+}
+
+/* Arrow badge */
+.service-card__link {
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.service-card__link:hover {
+  background: #056c8f;
+  color: #fff;
+}
+
+.service-card:hover .service-card__icon img {
+  animation: icon-bounce-in 1s linear;
+}
+
+@keyframes icon-bounce-in {
+  0%   { transform: scale(1); }
+  20%  { transform: scale(1.18); }
+  40%  { transform: scale(0.94); }
+  60%  { transform: scale(1.1); }
+  80%  { transform: scale(0.98); }
+  100% { transform: scale(1); }
+}
+
+/* ─── Blog card hover ─────────────────────────────────────────────────────── */
+.blog-card__plus {
+  position: absolute;
+  inset: 0;
+  background: rgb(1 26 35 / 0.7);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 600ms ease, transform 600ms ease;
+  pointer-events: none;
+}
+
+.blog-card__plus::before,
+.blog-card__plus::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25px;
+  height: 2px;
+  background: #fff;
+  transform: translate(-50%, -50%);
+}
+
+.blog-card__plus::after {
+  transform: translate(-50%, -50%) rotate(90deg);
+}
+
+.group:hover > .blog-card__plus {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ─── Buttons ─────────────────────────────────────────────────────────────── */
+.metco-btn {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+  text-align: center;
+  transition: color 500ms, background-color 500ms;
+}
+
+/* One size for every call-to-action; small controls opt out with --compact */
+.metco-btn:not(.metco-btn--compact) {
+  min-height: 55px;
+  padding-inline: 28px;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.metco-btn::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 100%;
+  height: 0;
+  background: #011a23;
+  transform: translate(-50%, -50%) rotate(-45deg);
+  transition: height 600ms;
+}
+
+.metco-btn:hover::after,
+.metco-btn:focus-visible::after {
+  height: 380%;
+}
+
+/* For dark or light buttons: the sweep comes in brand blue */
+.metco-btn--blue::after {
+  background: #056c8f;
+}
+
+.hero-dot::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border: 2px solid #056c8f;
+  border-radius: 50%;
+  transform: scale(1.44);
+  opacity: 0;
+  transition: opacity 300ms;
+}
+
+.hero-dot.is-active::after {
+  opacity: 1;
+}
+
+/* ─── Footer ──────────────────────────────────────────────────────────────── */
+.footer-link {
+  position: relative;
+  transition: color 300ms ease-in-out, padding-left 300ms ease-in-out;
+}
+
+.footer-link::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: #056c8f;
+  transform: translateY(-50%);
+  transition: width 400ms ease-in-out;
+}
+
+.footer-link:hover,
+.footer-link:focus-visible {
+  padding-left: 18px;
+  color: #fff;
+}
+
+.footer-link:hover::after,
+.footer-link:focus-visible::after {
+  width: 10px;
+}
+
+.footer-icon-wrap {
+  background: rgb(255 255 255 / 0.1);
+  transition: background-color 400ms ease-in-out;
+}
+
+.footer-icon-wrap:hover,
+.footer-contact:hover .footer-icon-wrap {
+  background: #056c8f;
+}
+
+.footer-gallery-item::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: rgb(1 26 35 / 0.7);
+  transition: height 400ms ease-in-out;
+  z-index: 1;
+}
+
+.footer-gallery-item:hover::after,
+.footer-gallery-item:focus-visible::after {
+  height: 100%;
+}
+
+.footer-gallery-item::before {
+  content: "+";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin: auto;
+  border-radius: 50%;
+  font-size: 20px;
+  color: #fff;
+  opacity: 0;
+  transform: scale(0);
+  transition: 500ms;
+}
+
+.footer-gallery-item:hover::before,
+.footer-gallery-item:focus-visible::before {
+  opacity: 1;
+  transform: scale(1);
+  transition-delay: 400ms;
+}
+
+/* ─── Per-element scroll reveal ───────────────────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  .reveal-ready [data-reveal] {
+    opacity: 0;
+  }
+
+  .reveal-ready [data-reveal].is-revealed {
+    animation-duration: 1250ms;
+    animation-fill-mode: both;
+    animation-timing-function: ease;
+  }
+
+  .reveal-ready [data-reveal="fade-up"].is-revealed { animation-name: reveal-fade-up; }
+  .reveal-ready [data-reveal="slide-up"].is-revealed { animation-name: reveal-slide-up; }
+  .reveal-ready [data-reveal="slide-left"].is-revealed { animation-name: reveal-slide-left; }
+  .reveal-ready [data-reveal="slide-right"].is-revealed { animation-name: reveal-slide-right; }
+
+  /* Width itself is driven from Reveal.tsx so the bar and its number stay in step */
+  .exp-bar__fill {
+    transition: width 1200ms linear;
+  }
+}
+
+/* ─── Custom cursor ───────────────────────────────────────────────────────── */
+@media (pointer: fine) {
+  .metco-cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    border: 1.5px solid #056c8f;
+    pointer-events: none;
+    z-index: 999991;
+    opacity: 1;
+    transform: translate3d(-200px, -200px, 0);
+    transition:
+      transform 200ms ease-out,
+      background-color 300ms ease,
+      width 300ms ease,
+      height 300ms ease;
+  }
+
+  .metco-cursor.metco-cursor--hover {
+    background-color: rgb(5 108 143 / 0.2);
+    width: 40px;
+    height: 40px;
+  }
+
+  .metco-cursor-dot {
+    position: fixed;
+    top: -200px;
+    left: -200px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #056c8f;
+    opacity: 0.5;
+    pointer-events: none;
+    z-index: 999992;
+    transform: translate(-50%, -50%);
+    transition: width 300ms ease, height 300ms ease, opacity 300ms ease;
+  }
+
+  .metco-cursor-dot.metco-cursor-dot--expand {
+    width: 22px;
+    height: 22px;
+    opacity: 0.25;
+  }
+}
+
+/* ─── Services dropdown, transposing Voldor's menu ────────────────────────── */
+.menu-dropdown {
+  position: absolute;
+  top: 100%;
+  left: -25px;
+  z-index: 50;
+  min-width: 230px;
+  padding: 25px 20px 20px;
+  background-color: #eef2f4;
+  box-shadow: 0 10px 60px 0 rgb(0 0 0 / 0.07);
+  opacity: 0;
+  visibility: hidden;
+  transform-origin: center top;
+  transform: scaleY(0) translateZ(100px);
+  transition: opacity 500ms, visibility 500ms, transform 700ms;
+}
+
+.has-dropdown:hover > .menu-dropdown,
+.has-dropdown:focus-within > .menu-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: scaleY(1) translateZ(0);
+}
+
+.menu-dropdown__item + .menu-dropdown__item {
+  margin-top: 8px;
+}
+
+.menu-dropdown__link {
+  display: flex;
+  padding: 10px 20px;
+  color: #595a5c;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.2142;
+  text-transform: uppercase;
+  transition: 400ms;
+}
+
+.menu-dropdown__link:hover,
+.menu-dropdown__link:focus-visible,
+.menu-dropdown__link[aria-current="page"] {
+  background-color: #fff;
+  color: #056c8f;
+}
+
+/* ─── Nav link faux-bold on hover (no layout shift) ───────────────────────── */
+header nav a:hover,
+header nav a[aria-current="page"] {
+  text-shadow: currentcolor 0 0 0.5px;
+}
+
+/* ─── Section padding overrides for home ──────────────────────────────────── */
+main#accueil #partners { padding-block: 24px; }
+main#accueil #about    { padding-block: 56px; }
+main#accueil #why      { padding-block: 56px; }
+main#accueil #faq      { padding-block: 56px; }
+main#accueil #blog     { padding-block: 40px 88px; }
+
+@media (min-width: 640px) {
+  main#accueil #partners { padding-block: 32px; }
+  main#accueil #about    { padding-block: 64px; }
+  main#accueil #why      { padding-block: 73px; }
+  main#accueil #faq      { padding-block: 64px; }
+  main#accueil #blog     { padding-block: 32px 120px; }
+}
+
+/* ─── Keyframes ────────────────────────────────────────────────────────────── */
+@keyframes section-enter-up {
+  from { opacity: 0; transform: translate3d(0, 22px, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes section-enter-left {
+  from { opacity: 0; transform: translate3d(-28px, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes section-enter-right {
+  from { opacity: 0; transform: translate3d(28px, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes reveal-fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes reveal-slide-up {
+  from { opacity: 1; transform: translate3d(0, 100%, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes reveal-slide-left {
+  from { opacity: 1; transform: translate3d(-100%, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes reveal-slide-right {
+  from { opacity: 1; transform: translate3d(100%, 0, 0); }
+  to   { opacity: 1; transform: translate3d(0, 0, 0); }
+}
+
+@keyframes hero-scale {
+  0%   { transform: scale(1); }
+  50%  { transform: scale(1.1); }
+  100% { transform: scale(1.2); }
+}
+
+@keyframes card-fade-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes play-pulse {
+  0%, 100% { transform: scale(1);    opacity: 1; }
+  50%       { transform: scale(1.08); opacity: 0.92; }
+}
+
+@keyframes menu-enter {
+  from { opacity: 0; transform: translateY(-8px) scaleY(0.96); }
+  to   { opacity: 1; transform: translateY(0) scaleY(1); }
+}
+
+/* ─── Reduced motion ────────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Contact page: hover feedback and Voldor's desaturated map.
+   Entrances run through the shared [data-reveal] system. */
+.contact-map__image {
+  mix-blend-mode: luminosity;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-card__photo-image {
+    transition: transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .contact-card__photo:hover .contact-card__photo-image {
+    transform: scale(1.045);
+  }
+}
+
+.contact-method__value {
+  display: block;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  line-height: 21px;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 1024px) {
+  .contact-method__value { font-size: 20px; line-height: 30px; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .contact-method__value { transition: color 250ms ease; }
+  a.contact-method__value:hover,
+  a.contact-method__value:focus-visible { color: #54bad5; }
+}
+

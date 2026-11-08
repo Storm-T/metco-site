@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+
+:root {
+  --color-dark: #011a23;
+  --color-blue: #056c8f;
+  --color-light-bg: #eef2f4;
+  --color-muted: #595a5c;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-outfit), sans-serif;
+  color: #011a23;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-gobold), sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font-gobold {
+  font-family: var(--font-gobold), sans-serif;
+  font-weight: 700;
+  font-style: normal;
+}
+
+.font-outfit {
+  font-family: var(--font-outfit), sans-serif;
+}
