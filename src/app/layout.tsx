@@ -48,6 +48,14 @@ export const metadata: Metadata = {
     description,
     images: [defaultOgImage],
   },
+  icons: {
+    icon: [
+      { url: '/icon.png', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', type: 'image/png' },
+    ],
+  },
   robots: {
     index: true,
     follow: true,
