@@ -45,3 +45,14 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
+
+      - name: npm install + restart via cPanel API
+        run: |
+          curl -k -s -X POST \
+            -u "${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_PASSWORD }}" \
+            "https://harmonicdesign237.com:2083/execute/NodejsApp/npm_install" \
+            --data "app_name=public_html%2Fmetco237.com"
+          curl -k -s -X POST \
+            -u "${{ secrets.CPANEL_USERNAME }}:${{ secrets.CPANEL_PASSWORD }}" \
+            "https://harmonicdesign237.com:2083/execute/NodejsApp/restart_app" \
+            --data "app_name=public_html%2Fmetco237.com"
