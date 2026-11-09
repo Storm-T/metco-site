@@ -49,12 +49,8 @@ export const metadata: Metadata = {
     images: [defaultOgImage],
   },
   icons: {
-    icon: [
-      { url: '/icon.png', type: 'image/png' },
-    ],
-    apple: [
-      { url: '/apple-icon.png', type: 'image/png' },
-    ],
+    icon: '/favicon.png',
+    apple: '/favicon.png',
   },
   robots: {
     index: true,
