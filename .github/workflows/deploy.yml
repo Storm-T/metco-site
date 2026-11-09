@@ -42,3 +42,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: .next/standalone/
           server-dir: ${{ secrets.FTP_REMOTE_DIR }}
+          exclude: |
+            **/.git*
+            **/.git*/**
